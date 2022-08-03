@@ -1,0 +1,7 @@
+# hoi4Variable GER_mefo_bill_counter = 0
+desc = "Repeated uprisings in Austria clearly show that the people there long to be united with our Reich. It is now time to take action and allow the will of the people to be made manifest."
+num=324
+
+func GER_has_mefo_bills() {
+    # Too lazy to convert it to .hoic, doesn't change anything either way
+}

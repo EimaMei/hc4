@@ -1,0 +1,49 @@
+#include "defines.hoic"
+
+event anschluss = event.new(id= "germany.2") # Create the event
+ 
+anschluss.title = "germany cringe"
+anschluss.description = desc
+anschluss.picture = "res/image.png"
+# anschluss.isTriggeredOnly = true # By default 'isTriggeredOnly' is set to true
+# anschluss.isNewsEvent = false # 'isNewsEvent' is set to false by deafult
+
+anschluss.option.a = {
+    title = "lkasfjlfjdslkjfd"
+	
+    #results = {
+    #    if (AUS.ownsState(id=4) ) { ROOT.coreState(id=4) }
+    #    if (AUS.ownsState(id=152) ) { ROOT.coreState(id=4) }
+    #    if (AUS.ownsState(id=153) ) { ROOT.coreState(id=4) }
+#
+    #    for (leader in AUS.everyUnitLeader) {
+    #        leader.setNationality(country = "GER")
+    #    }
+#
+    #    ROOT.annexCountry(country = "AUS", transferDivisions = true)
+    #    ROOT.setFlag(flag="AUS_annexed")
+    #    ROOT.addWarSupport(value=10)
+    #    ROOT.addStability(value=5)
+    #    USA.setFlag(flag="USA_anschluss_window", days = 60)
+    #    ROOT.addTooltip(text = "Uses Austrian gold to reduce the cost of §YMEFO bills§!.")
+    #    ROOT.addTooltip(text = "Modify §YMEFO Bills§! by §G+0.10§! Daily Political Power Gain\n")
+    #    //GER_mefo_bill_counter = -10
+#
+    #    if (hasDLC(dlc = "Death or Dishonor") && YUG.exists() && YUG.atWar() == false) {
+	#		YUG.launchEvent(id = "DOD_yugoslavia.30", days = 4)
+	#	}
+    #}
+    #hidden_results = {
+    #    GER_has_mefo_bills()
+    #    GER_has_mefo_bills()
+    #    launchEvent(id = "news.36", hours = 6)
+    #}
+}
+
+anschluss.option.b = {
+    title = "option 2"
+}
+
+anschluss.option.c = {
+    title = "end this misery"
+}

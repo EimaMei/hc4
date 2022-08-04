@@ -8,8 +8,7 @@ LIBS = -lShell32
 all: $(OUTPUT).exe
 	$(CC) -O2 source/main.cpp hc4.a -o $^
 	@clear
-	./$^ examples/event/main.hoic 
-#-debug
+	./$^ examples/event/main.hc4 -debug
 
 build: $(SRC)
 	@rm -f $(OUTPUT).a

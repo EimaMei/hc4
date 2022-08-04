@@ -68,6 +68,7 @@ std::string colorText(std::string txt, textType type) {
         case COMPILER_ERROR: clr = FOREGROUND_RED|FOREGROUND_INTENSITY; break;
         case COMPILER_DEBUG: clr = FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_BLUE; break;
         case COMPILER_TYPE: clr = FOREGROUND_INTENSITY | FOREGROUND_BLUE; break;
+        case COMPILER_NOTE: clr = FOREGROUND_INTENSITY | FOREGROUND_GREEN | FOREGROUND_BLUE; break;
         default: clr = type; break;
     }
 

@@ -1,0 +1,18 @@
+#include "defines.hc4"
+
+event anschluss = event.new(id= "germany.2") # Create the event
+ 
+anschluss.title = "Anschluss"
+anschluss.description = desc
+anschluss.picture = "res/image.png"
+# anschluss.isTriggeredOnly = true # By default 'isTriggeredOnly' is set to true
+# anschluss.isNewsEvent = false # 'isNewsEvent' is set to false by deafult
+
+
+anschluss.option.a = {
+    title = "How can anyone say that Austria is not German?!"
+	
+    results = {
+        #ROOT.addStability(value=5)
+    }  
+}

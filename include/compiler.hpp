@@ -11,6 +11,11 @@ struct variable {
     varType type;
 };
 
+enum compilerError {
+    UNDEFINED_VARIABLE, MISSING_BRACKET_1, MISSING_BRACKET_2,
+    UNDEFINED_FUNCTION
+};
+
 namespace hc4 {
     extern std::vector<variable> variables;
     extern std::vector<std::string> mentionedPaths;
@@ -26,10 +31,15 @@ namespace hc4 {
     
     extern int refNum;
     extern bool stop;
+
+    void compileFile(std::string path, std::string folder);
+    bool areBracketsBalanced(std::string path);
     
     void debugMode();
-    void errorReport(int numOfLines, std::string path, int amountOfBrackets);
+    void errorReport(int numOfLines, std::string path, std::string error, int waveyLength=line.size(), compilerError type=UNDEFINED_VARIABLE, textType msgType=COMPILER_ERROR);
 
-    int newEvent(bool& found, variable& eventVar, int i=-1);
+    bool newEvent(bool& found, variable& eventVar, int i=-1, int numOfLines=0, std::string path="");
     void newVar(bool& found);
+
+    int hashtags(std::string folder);
 };

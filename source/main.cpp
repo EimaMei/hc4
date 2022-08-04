@@ -9,37 +9,23 @@ using namespace hc4;
 bool debug=false;
 std::string filename;
 
-void compileFile(std::string path, std::string folder) {
+void hc4::compileFile(std::string path, std::string folder) {
     std::ifstream file(path);
 	int numOfLines=0;
 	int amountOfBrackets=0;
 
+	areBracketsBalanced(path);
+
     while (std::getline(file, line)) {
 		numOfLines++;
 		if (stop) break;
-		
 		bool found=false;
 
-        if (find(line, "#include")) {
-            std::string f = folder+split(line, "\"")[1];
-
-            compileFile(f, folder);
-			continue;
-        }
-        else if (find(line, "#")) {
-            std::string n;
-            for(int i = 0; i < line.size(); i++) {
-                if (line.at(i) == '#') break;
-                n += line.at(i);
-            }
-            line=n;
-        }
+        if (hashtags(folder) == 1) continue; 
 
         if (!isWhitespace(line)) {
-
             words = split(line, " ");
-			std::string noSpace;
-            for (int i=0; i<words.size(); i++) { noSpace += words[i] + " "; };
+			std::string noSpace; for (int i=0; i<words.size(); i++) { noSpace += words[i] + " "; };
 			equals= split(noSpace, "=");
 
 			if (find(line, "{")) { amountOfBrackets++; found=true; }
@@ -56,8 +42,10 @@ void compileFile(std::string path, std::string folder) {
 				for (int i=0; i<variables.size(); i++) {
 					if (find(line, variables[i].name)) {
 						switch (variables[i].type) {
-							case EVENT: newEvent(found, variables[i], i); found = true; break;
-							case STRING: continue;
+							case EVENT: newEvent(found, variables[i], i, numOfLines, path); break;
+							case STRING: 
+							case INTEGER:
+							continue;
 						}
 						
 						if (found) break;
@@ -71,16 +59,18 @@ void compileFile(std::string path, std::string folder) {
 						newEvent(found, variables[refNum], -2);
 						continue;
 					} 
+					else if (find(line, "results") && variables[refNum].value2.size() > variables[refNum].name.size() && amountOfBrackets > 0 ) {
+						newEvent(found, variables[refNum], -2);
+						continue;
+					} 
 				}
 				else newVar(found);
             }
-
-			if (debug) std::cout << colorText(path+":"+std::to_string(numOfLines)+": (bracketCount - "+std::to_string(amountOfBrackets)+")", COMPILER_DEBUG) << std::endl;
         }
 		else { continue; }
 		
-		if (!found) {
-			errorReport(numOfLines, path, amountOfBrackets);
+		if (!found && !isWhitespace(line)) {
+			errorReport(numOfLines, path, "Undefined variable");
 			break;
 		}
     }
@@ -89,7 +79,7 @@ void compileFile(std::string path, std::string folder) {
     if (!stop) std::cout << colorText("Finished compiling "+std::to_string(numOfLines)+" lines from ", COMPILER_CORRECT) << "'" << colorText(path, COMPILER_WARNING) << "'" << colorText(" successfully", COMPILER_CORRECT) << std::endl;
 }
 
-int main(int argc, char** argv) { 
+int main(int argc, char** argv) {
 	if (argc <= 1) { std::cout << colorText("Error", COMPILER_ERROR) << ": No input files provided" << std::endl; return 0;  }
 	else {
 		for (int i=1; i<argc; i++) {
